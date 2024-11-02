@@ -24,7 +24,7 @@ class LinkedList:
     def display(self):
         curr = self.head
         while curr:
-            print(curr.data,end="->")
+            print(curr.data,end=" --> ")
             curr = curr.next
         print(curr)
         
@@ -51,4 +51,14 @@ class LinkedList:
         
     #Delete with value
     
-            
+
+
+
+
+
+list1 = LinkedList()
+list1.add_end(1)
+list1.add_end(2)
+list1.add_end(3)
+list1.add_end(4)
+list1.display()
