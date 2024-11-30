@@ -1,3 +1,5 @@
+# Implementation using classes
+
 class Node:
     def __init__(self,data):
         self.data=data
@@ -92,7 +94,7 @@ class Bst:
     def is_bst_rc(self,node,left,right):
         if node is None:
             return True
-        if not (left<node.data<right):
+        if not (left<node.data<right):  
             return False
         return (self.is_bst_rc(node.left,left,node.data)) and (self.is_bst_rc(node.right,node.data,right))
     
@@ -167,7 +169,26 @@ class Bst:
             return -1
         left_height = self._height_recursive(node.left)
         right_height = self._height_recursive(node.right)
-        return 1 + max(left_height, right_height)      
+        return 1 + max(left_height, right_height)
+
+    def find_kth_largest(self,k):
+        self.k = k
+        self.cnt = 0
+        self.result = None
+        self._reverse_inorder(self.root)
+        return self.result
+
+    def _reverse_inorder(self,node):
+        if node is None or self.cnt>=self.k:
+            return
+        self._reverse_inorder(node.right)
+        self.cnt += 1
+
+        if self.cnt == self.k:
+            self.result = node.data
+            return
+        
+        self._reverse_inorder(node.left)
         
             
             
@@ -191,6 +212,7 @@ print(bst.sumofnodes())
 print(bst.count())
 print(bst.countofleaf())
 print(bst.height())
+print(bst.find_kth_largest(3))
 
             
             

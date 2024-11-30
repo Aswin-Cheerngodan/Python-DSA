@@ -1,3 +1,5 @@
+# Implementation using functions
+
 class Node:
     def __init__(self,val):
         self.data=val
