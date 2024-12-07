@@ -1,6 +1,6 @@
 #Merge sort Method:1
 def mergeSort(arr):
-    if len(arr)<1:
+    if len(arr)<=1:
         return arr
     
     mid = len(arr)//2
@@ -16,8 +16,8 @@ def merge(left,right):
     result = []
     i=j=0
 
-    while i<len(left) and j<len(left):
-        if left[i]<left[j]:
+    while i<len(left) and j<len(right):
+        if left[i]<right[j]:
             result.append(left[i])
             i += 1
         else:
@@ -29,4 +29,6 @@ def merge(left,right):
 
     return result
 
+nums = [3, 7, 6, -10, 15,54, 55, -13]
+print(mergeSort(nums))
 

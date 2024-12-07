@@ -1,11 +1,16 @@
 #Hash Table with seperate chaining
 class Hash:
     def __init__(self,size):
-        self.size = size
-        self.table = [[] for _ in range(size)]
+        self.capacity = size
+        self.size = 0
+        self.table = [[] for _ in range(self.capacity)]
 
     def hash_func(self,key):
-        return hash(key)%self.size
+        key = str(key)
+        total = 0
+        for i in key:
+            total += ord(i)
+        return total%self.capacity
     
     def insert(self,key,value):
         index = self.hash_func(key)
@@ -14,6 +19,10 @@ class Hash:
                 item[1] = value
                 return
         self.table[index].append([key,value])
+        self.size += 1
+
+        if self.size > 0.7*self.capacity:
+            self.resize()
 
     def get(self,key):
         index = self.hash_func(key)
@@ -28,7 +37,9 @@ class Hash:
         for i,item in enumerate(self.table[index]):
             if item[0] == key:
                 del self.table[index][i]
+                self.size -= 1
                 return True
+        
         return False
     
 
@@ -36,9 +47,19 @@ class Hash:
         for i,items in enumerate(self.table):
             print(f"Index{i}: {items}")
 
+    
+    def resize(self):
+        old_table = self.table
+        self.capacity *= 2
+        self.table = [[] for i in range(self.capacity)]
+        self.size = 0
+        for pair in old_table:
+            for key,value in pair:
+                self.insert(key,value)
 
 
-hash_table = Hash(10)
+
+hash_table = Hash(3)
 
 hash_table.insert("apple", 100)
 hash_table.insert("banana", 200)
