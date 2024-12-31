@@ -41,7 +41,7 @@ class Trie:
         for char in prefix:
             if char not in node.children:
                 return False
-            node=node.children[char]
+            node=node.children[char]    
         self.print_st_hr(node,prefix)
         
     def print_st_hr(self,node,word):

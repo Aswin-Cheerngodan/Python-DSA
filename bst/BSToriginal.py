@@ -43,7 +43,7 @@ class Bst:
         elif val<node.data:
             return self.contains_rc(node.left,val)
         elif val>node.data:
-            return self.contains_rc(node.right,val)
+            return self.contains_rc(node.right,val) 
     
     def minvalnode(self,node):
         curr=node
@@ -185,7 +185,7 @@ class Bst:
         self.cnt += 1
 
         if self.cnt == self.k:
-            self.result = node.data
+            self.result = node.data     
             return
         
         self._reverse_inorder(node.left)
