@@ -1,4 +1,4 @@
-#Hash Table with seperate chaining
+#Hash Table with array seperate chaining
 class Hash:
     def __init__(self,size):
         self.capacity = size
@@ -59,14 +59,80 @@ class Hash:
 
 
 
-hash_table = Hash(3)
+# hash_table = Hash(3)
 
-hash_table.insert("apple", 100)
-hash_table.insert("banana", 200)
-hash_table.insert("grape", 300)
+# hash_table.insert("apple", 100)
+# hash_table.insert("banana", 200)
+# hash_table.insert("grape", 300)
 
-hash_table.display()
-print("Value for 'apple':", hash_table.get("apple"))
-hash_table.remove("banana")
-print("After removing 'banana':")
-hash_table.display()
+# hash_table.display()
+# print("Value for 'apple':", hash_table.get("apple"))
+# hash_table.remove("banana")
+# print("After removing 'banana':")
+# hash_table.display()
+
+
+#Hash table with linked list seperate chaining
+class Node:
+    def __init__(self,key,data):
+        self.key = key
+        self.data = data
+        self.next = None
+
+class Hash_LL:
+    def __init__(self,size):
+        self.capacity = size
+        self.size = 0
+        self.table = [None]*size
+
+    def __hash(self,key):
+        key = str(key)
+        total = 0
+        for i in key:
+            total += ord(i)
+        return total%self.capacity
+
+    def add(self,key,val):
+        index = self.__hash(key)
+        if not self.table[index]:
+            self.table[index] = Node(key,val)
+        else:
+            current = self.table[index]
+            while current:
+                if current.key == key:
+                    current.data = val
+                    return
+                if not current.next:
+                    break
+                current = current.next
+            current.next = Node(key,val)
+    
+    def get(self,key):
+        index = self.__hash(key)
+        if not self.table[index]:
+            return "Key is not found !"
+        current = self.table[index]
+        while current:
+            if current.key == key:
+                return current.data
+            current = current.next
+        return "Key is not found !"
+    
+    def display(self):
+        for i,bucket in enumerate(self.table):
+            print(f"bucket {i}",end=" ")
+            current = bucket
+            while current:
+                print(f"[{current.key}:{current.data}] ->",end="")
+                current = current.next
+            print()
+
+        
+hash_ll = Hash_LL(10)
+hash_ll.add('Broto',148600)
+hash_ll.add('Bridgon',65000)
+hash_ll.add('Luminar',80000)
+print(hash_ll.get('Luminar'))
+hash_ll.display()
+
+
